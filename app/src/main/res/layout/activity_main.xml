@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#f1f1f1">
+
+    <android.support.v7.widget.Toolbar
+        android:background="@drawable/splash_bg_2"
+        android:id="@+id/toolbar_main"
+        android:layout_width="match_parent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_judul"
+                android:textSize="18dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:text="Safety Patrol"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_main"
+        android:id="@+id/header_layout">
+
+        <ImageView
+            android:id="@+id/main_header"
+            android:layout_width="match_parent"
+            android:layout_height="272dp"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/header" />
+
+        <TextView
+            android:id="@+id/selamat_datang"
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/main_header"
+            android:layout_alignTop="@+id/main_header"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:fontFamily="@font/circularblack"
+            android:text="Selamat datang di halaman Safety Patrol Report."
+            android:textColor="#fff"
+            android:textSize="32dp" />
+
+        <TextView
+            android:layout_width="88dp"
+            android:layout_height="43dp"
+            android:layout_below="@+id/selamat_datang"
+            android:layout_alignEnd="@+id/main_header"
+            android:layout_alignRight="@+id/main_header"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="-19dp"
+            android:layout_marginEnd="280dp"
+            android:layout_marginRight="280dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="___"
+            android:textColor="#fff"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_width="256dp"
+            android:layout_height="26dp"
+            android:layout_below="@+id/selamat_datang"
+            android:layout_alignEnd="@+id/main_header"
+            android:layout_alignRight="@+id/main_header"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="110dp"
+            android:layout_marginRight="110dp"
+            android:fontFamily="@font/circularbook"
+            android:text="Bagaimana kondisi hari ini?"
+            android:textColor="#fff"
+            android:textSize="15dp"
+            android:textStyle="italic" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content_layout"
+        android:layout_width="358dp"
+        android:layout_height="237dp"
+        android:layout_below="@id/header_layout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="-67dp"
+        android:layout_marginRight="20dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_safe"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            app:cardCornerRadius="13dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="342dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/safe"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:src="@drawable/bener" />
+
+                <TextView
+                    android:layout_width="236dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginRight="22dp"
+                    android:layout_toEndOf="@+id/safe"
+                    android:layout_toRightOf="@+id/safe"
+                    android:fontFamily="@font/circularblack"
+                    android:text="Pilih Safe jika kondisi aman"
+                    android:textColor="#2B5876"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_risk"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_below="@id/cv_safe"
+            android:layout_marginTop="25dp"
+            app:cardCornerRadius="13dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/cross"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:src="@drawable/salah" />
+
+                <TextView
+                    android:layout_width="236dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginRight="22dp"
+                    android:layout_toEndOf="@+id/cross"
+                    android:layout_toRightOf="@+id/cross"
+                    android:fontFamily="@font/circularblack"
+                    android:text="Pilih Risk jika kondisi  tidak aman"
+                    android:textColor="#2B5876"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

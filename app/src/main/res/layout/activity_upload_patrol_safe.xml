@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#fff">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="@drawable/splash_bg_2"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_upload">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_judul_upload"
+                android:text="Safety Patrol"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="0dp"
+        android:layout_below="@id/toolbar_upload">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="30dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/upload_judul"
+                android:text="Patrol Identity"
+                android:textStyle="bold"
+                android:fontFamily="@font/circularbook"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nama_upload"
+                android:layout_below="@id/upload_judul"
+                android:layout_marginTop="15dp"
+                android:text="Nama :"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/circularbook"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/upload_nama"
+                android:layout_below="@id/nama_upload"
+                android:background="@drawable/edit_text_bg"
+                android:padding="7dp"
+                android:layout_marginTop="5dp"
+                android:inputType="textCapSentences"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/phone_upload"
+                android:layout_below="@id/upload_nama"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/circularbook"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="Phone :"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/upload_phone"
+                android:layout_below="@id/phone_upload"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edit_text_bg"
+                android:padding="7dp"
+                android:inputType="phone"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/position_upload"
+                android:layout_below="@id/upload_phone"
+                android:layout_marginTop="10dp"
+                android:text="Position :"
+                android:fontFamily="@font/circularbook"
+                android:textStyle="bold"
+                android:textSize="14dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/upload_position"
+                android:background="@drawable/edit_text_bg"
+                android:padding="7dp"
+                android:layout_below="@id/position_upload"
+                android:layout_marginTop="5dp"
+                android:inputType="textPersonName"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/department_judul"
+                android:text="Department :"
+                android:layout_below="@id/upload_position"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/circularbook"
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/judul_department"
+                android:layout_below="@id/department_judul"
+                android:background="@drawable/edit_text_bg"
+                android:padding="7dp"
+                android:inputType="textPersonName"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/shift_upload"
+                android:layout_below="@id/judul_department"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:text="Shift :"
+                android:fontFamily="@font/circularbook"/>
+
+            <EditText
+                android:id="@+id/upload_shift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/shift_upload"
+                android:background="@drawable/edit_text_bg"
+                android:padding="7dp"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/deskripsi_upload"
+                android:text="Deskripsi :"
+                android:fontFamily="@font/circularbook"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:layout_below="@id/upload_shift"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/upload_deskripsi"
+                android:maxLength="50"
+                android:layout_below="@id/deskripsi_upload"
+                android:background="@drawable/edit_text_bg"
+                android:padding="7dp"
+                android:layout_marginTop="5dp"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/upload_button"
+                android:layout_below="@id/upload_deskripsi"
+                android:layout_marginTop="30dp"
+                android:text="submit"
+                android:fontFamily="@font/circularblack"
+                android:textStyle="bold"
+                android:background="@drawable/button_bg"
+                android:textColor="#fff"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
