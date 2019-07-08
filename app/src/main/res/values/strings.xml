@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">TPK Koja</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="download_image">Download remote image from url</string>
+    <string name="download_now">Download now</string>
+    <string name="download_input_error">Url input field must be filled</string>
+    <string name="list_image">List downloaded images</string>
+    <string name="no_image">No image on storage folder</string>
+    <string name="url_error">Your input url is short</string>
+
+    <string name="upload_image">UPLOAD IMAGE</string>
+    <string name="read_file">This app needs access to your file storage so that it can read photos.</string>
 
     <string-array name="Shift">Shift
         <item>1</item>
@@ -12,4 +21,18 @@
     <string name="msg_loading">Loading...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="string_help_text"> The permission is missing.\n\nTo grant this permission click on Settings, then Permissions and turn the permission on.\n\nThen click back twice to return to the app</string>
+    <string name="quit">Exit App</string>
+    <string name="string_title_upload_progressbar_">Uploading.. Wait for a while...</string>
+    <string name="string_upload_success">File Uploaded Successfully..</string>
+    <string name="string_upload_fail">Something went wrong</string>
+    <string name="string_internet_connection_warning">Internet Connection not Available</string>
+    <string name="string_message_to_attach_file">First attach file to upload</string>
+    <string name="string_choose_image">Select Image to Upload</string>
+    <string name="string_unable_to_pick_image">Unable to Pickup Image</string>
+    <string name="string_unable_to_load_image">Unable to Load Image</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -1,241 +1,106 @@
 package com.example.tpkkoja.Content;
 
-import android.app.ProgressDialog;
+
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.tpkkoja.AccountActivity.LoginActivity;
+import com.example.tpkkoja.MainActivity;
 import com.example.tpkkoja.R;
-import com.example.tpkkoja.Services.PreferenceHelper;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
-import javax.net.ssl.HttpsURLConnection;
+import okhttp3.CacheControl;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class UploadPatrolSafe extends AppCompatActivity {
-    EditText safe_nama,safe_phone,safe_position,safe_department,safe_shift,safe_deskripsi;
+
+    EditText safe_nama,safe_phone,safe_position,safe_deskripsi,safe_department;
     Button safe_upload;
-    PreferenceHelper preferenceHelper;
+    Spinner safe_shift;
+    ProgressBar safe_progress;
 
-    String getNama,getPhone,getPosition,getDepartment,getShift,getDeskripsi;
-
-    ProgressDialog progressDialog;
-
-    String nama = "nama" ;
-    String phone = "phone" ;
-    String position = "position";
-    String department = "department";
-    String shift = "shift";
-    String deskripsi = "deskripsi";
-    boolean check = true;
-
-
-    String ServerUploadPath ="https://tpkkojaapps.000webhostapp.com/services/upload.php" ;
+    private static final String url= "https://nyoobie.com/upload.php";
+    private OkHttpClient client = new OkHttpClient();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_patrol_safe);
 
         safe_nama = findViewById(R.id.upload_nama);
         safe_phone = findViewById(R.id.upload_phone);
         safe_position = findViewById(R.id.upload_position);
-        safe_department = findViewById(R.id.judul_department);
-        safe_shift = findViewById(R.id.upload_shift);
         safe_deskripsi = findViewById(R.id.upload_deskripsi);
-
         safe_upload = findViewById(R.id.upload_button);
-
+        safe_shift = findViewById(R.id.upload_shift);
+        safe_progress = findViewById(R.id.upload_progressbar);
+        safe_department = findViewById(R.id.judul_department);
+        
         safe_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getNama = safe_nama.getText().toString();
-                getPhone = safe_phone.getText().toString();
-                getPosition = safe_position.getText().toString();
-                getDepartment = safe_department.getText().toString();
-                getShift = safe_shift.getText().toString();
-                getDeskripsi = safe_deskripsi.getText().toString();
-
-                upload();
+                uploadSafe();
             }
         });
 
-
-        preferenceHelper = new PreferenceHelper(this);
-
-        Toolbar tool = findViewById(R.id.toolbar_upload);
-        TextView title = tool.findViewById(R.id.toolbar_judul_upload);
-        setSupportActionBar(tool);;
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void upload() {
-        class AsyncTaskUploadClass extends AsyncTask<Void,Void,String> {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                progressDialog = ProgressDialog.show(UploadPatrolSafe.this,"Uploading...","Please wait...",false,false);
+    private void uploadSafe() {
+        safe_progress.setVisibility(View.VISIBLE);
 
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("nama",safe_nama.getText().toString())
+                .addFormDataPart("phone",safe_phone.getText().toString())
+                .addFormDataPart("position",safe_position.getText().toString())
+                .addFormDataPart("department",safe_department.getText().toString())
+                .addFormDataPart("shift",safe_shift.getSelectedItem().toString())
+                .addFormDataPart("deskripsi",safe_deskripsi.getText().toString())
+                .addFormDataPart("tipe","SAFE")
+                .addFormDataPart("filegambar","")
+                .addFormDataPart("submit","submit")
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .cacheControl(new CacheControl.Builder().noCache().build())
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("On Failure",e.getStackTrace().toString());
             }
 
             @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                progressDialog.dismiss();
-                Toast.makeText(UploadPatrolSafe.this,s,Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            protected String doInBackground(Void... voids) {
-                ProcessClass processClass = new ProcessClass();
-                HashMap<String,String> hashMap = new HashMap<String,String>();
-                hashMap.put(nama,getNama);
-                hashMap.put(phone,getPhone);
-                hashMap.put(position,getPosition);
-                hashMap.put(department,getDepartment);
-                hashMap.put(shift,getShift);
-                hashMap.put(deskripsi,getDeskripsi);
-                String data = processClass.ImageHttpRequest(ServerUploadPath,hashMap);
-                return data;
-            }
-        }
-        AsyncTaskUploadClass asyncTaskUploadClass = new AsyncTaskUploadClass();
-        asyncTaskUploadClass.execute();
-    }
-
-    public class ProcessClass{
-        public String ImageHttpRequest(String requestURL, HashMap<String,String> PData){
-            StringBuilder stringBuilder = new StringBuilder();
-            try {
-
-                URL url;
-                HttpURLConnection httpURLConnectionObject ;
-                OutputStream OutPutStream;
-                BufferedWriter bufferedWriterObject ;
-                BufferedReader bufferedReaderObject ;
-                int RC ;
-
-                url = new URL(requestURL);
-
-                httpURLConnectionObject = (HttpURLConnection) url.openConnection();
-
-                httpURLConnectionObject.setReadTimeout(19000);
-
-                httpURLConnectionObject.setConnectTimeout(19000);
-
-                httpURLConnectionObject.setRequestMethod("POST");
-
-                httpURLConnectionObject.setDoInput(true);
-
-                httpURLConnectionObject.setDoOutput(true);
-
-                OutPutStream = httpURLConnectionObject.getOutputStream();
-
-                bufferedWriterObject = new BufferedWriter(
-
-                        new OutputStreamWriter(OutPutStream, "UTF-8"));
-
-                bufferedWriterObject.write(bufferedWriterDataFN(PData));
-
-                bufferedWriterObject.flush();
-
-                bufferedWriterObject.close();
-
-                OutPutStream.close();
-
-                RC = httpURLConnectionObject.getResponseCode();
-
-                if (RC == HttpsURLConnection.HTTP_OK) {
-
-                    bufferedReaderObject = new BufferedReader(new InputStreamReader(httpURLConnectionObject.getInputStream()));
-
-                    stringBuilder = new StringBuilder();
-
-                    String RC2;
-
-                    while ((RC2 = bufferedReaderObject.readLine()) != null){
-
-                        stringBuilder.append(RC2);
+            public void onResponse(Call call, Response response) throws IOException {
+                final String hasil = response.body().string();
+                Log.d("Response",hasil);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        safe_progress.setVisibility(View.INVISIBLE);
+                        Toast.makeText(UploadPatrolSafe.this,hasil,Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(UploadPatrolSafe.this, MainActivity.class));
+                        finish();
                     }
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+                });
             }
-            return stringBuilder.toString();
-        }
-        private String bufferedWriterDataFN(HashMap<String, String> HashMapParams) throws UnsupportedEncodingException {
-
-            StringBuilder stringBuilderObject;
-
-            stringBuilderObject = new StringBuilder();
-
-            for (Map.Entry<String, String> KEY : HashMapParams.entrySet()) {
-
-                if (check)
-
-                    check = false;
-                else
-                    stringBuilderObject.append("&");
-
-                stringBuilderObject.append(URLEncoder.encode(KEY.getKey(), "UTF-8"));
-
-                stringBuilderObject.append("=");
-
-                stringBuilderObject.append(URLEncoder.encode(KEY.getValue(), "UTF-8"));
-            }
-
-            return stringBuilderObject.toString();
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.profile:
-                Toast.makeText(this,"Profile",Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.setting:
-                Toast.makeText(this,"Setting",Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.logout:
-                preferenceHelper.putIsLogin(false);
-                Intent intent = new Intent(UploadPatrolSafe.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                UploadPatrolSafe.this.finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_toolbar,menu);
-        return true;
+        });
     }
 }

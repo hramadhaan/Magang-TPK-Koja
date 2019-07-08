@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.tpkkoja.Content.CobaUpload;
+import com.example.tpkkoja.Content.UploadPatrolRisk;
 import com.example.tpkkoja.Content.UploadPatrolSafe;
 import com.example.tpkkoja.Services.PreferenceHelper;
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         cv_risk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CobaUpload.class));
+                startActivity(new Intent(MainActivity.this, UploadPatrolRisk.class));
             }
         });
 

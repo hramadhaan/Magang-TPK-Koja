@@ -1,338 +1,145 @@
 package com.example.tpkkoja.Content;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.tpkkoja.R;
+import com.squareup.picasso.Picasso;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
+import okhttp3.CacheControl;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class CobaUpload extends AppCompatActivity {
-    Button GetImageFromGalleryButton, UploadImageOnServerButton;
-
-    ImageView ShowSelectedImage;
-
-    EditText imageName;
-
-    Bitmap FixBitmap;
-
-    String ImageData = "image_data" ;
-
-    String ImageName = "image_name" ;
-
-    ProgressDialog progressDialog ;
-
-    ByteArrayOutputStream byteArrayOutputStream ;
-
-    byte[] byteArray ;
-
-    String ConvertImage ;
-
-    String GetImageNameFromEditText;
-
-    HttpURLConnection httpURLConnection ;
-
-    URL url;
-
-    OutputStream outputStream;
-
-    BufferedWriter bufferedWriter ;
-
-    int RC ;
-
-    BufferedReader bufferedReader ;
-
-    StringBuilder stringBuilder;
-
-    boolean check = true;
-
-    private int GALLERY = 1, CAMERA = 2;
-
+    String pathgambar;
+    String namafile;
+    private EditText im_edit;
+    private ProgressBar progressBar;
+    private static final String urlix= "https://nyoobie.com/upload.php";
+    private OkHttpClient client = new OkHttpClient();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coba_upload);
-
-        GetImageFromGalleryButton = (Button)findViewById(R.id.buttonSelect);
-
-        UploadImageOnServerButton = (Button)findViewById(R.id.buttonUpload);
-
-        ShowSelectedImage = (ImageView)findViewById(R.id.imageView);
-
-        imageName=(EditText)findViewById(R.id.imageName);
-
-        byteArrayOutputStream = new ByteArrayOutputStream();
-
-        GetImageFromGalleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                showPictureDialog();
-
-
-            }
-        });
-
-
-        UploadImageOnServerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                GetImageNameFromEditText = imageName.getText().toString();
-
-                UploadImageToServer();
-
-            }
-        });
-
-        if (ContextCompat.checkSelfPermission(CobaUpload.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{android.Manifest.permission.CAMERA},
-                        5);
-            }
-        }
+        progressBar=(ProgressBar)findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.INVISIBLE);
+        im_edit = findViewById(R.id.im_edit);
     }
-
-    private void showPictureDialog(){
-        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-        pictureDialog.setTitle("Select Action");
-        String[] pictureDialogItems = {
-                "Photo Gallery",
-                "Camera" };
-        pictureDialog.setItems(pictureDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                choosePhotoFromGallary();
-                                break;
-                            case 1:
-                                takePhotoFromCamera();
-                                break;
-                        }
-                    }
-                });
-        pictureDialog.show();
-    }
-    public void choosePhotoFromGallary() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+    public void ambilGambar(View v){
+        Intent i = new Intent(
+                Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-        startActivityForResult(galleryIntent, GALLERY);
+        startActivityForResult(i, 1);
     }
 
-    private void takePhotoFromCamera() {
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAMERA);
+    public void kirimGambar(View v){
+        progressBar.setVisibility(View.VISIBLE);
+        String mime="image/"+ namafile.substring(namafile.lastIndexOf(".")).replace(".","");
+        final MediaType MEDIA_TYPE = MediaType.parse(mime);
+        File file = new File(pathgambar);
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("filegambar", namafile, RequestBody.create(MEDIA_TYPE, file))
+                .addFormDataPart("caption", im_edit.getText().toString())
+                .addFormDataPart("submit", "submit")
+                .build();
+
+        Request request = new Request.Builder()
+                .url(urlix)
+                .post(requestBody)
+                .cacheControl(new CacheControl.Builder().noCache().build())
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("ON FAILURE", e.getStackTrace().toString());
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+
+                if (!response.isSuccessful()) {
+                    Log.d("ON RESPON ERROR", String.valueOf(response));
+                    throw new IOException("Unexpected code " +  response);
+                } else {
+                    final String hasil =response.body().string();
+                    Log.d("RESPON", hasil);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
+
+                }
+            };
+        });
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == this.RESULT_CANCELED) {
-            return;
-        }
-        if (requestCode == GALLERY) {
-            if (data != null) {
-                Uri contentURI = data.getData();
-                try {
-                    FixBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    // String path = saveImage(bitmap);
-                    //Toast.makeText(MainActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
-                    ShowSelectedImage.setImageBitmap(FixBitmap);
-                    UploadImageOnServerButton.setVisibility(View.VISIBLE);
+        try {
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(CobaUpload.this, "Failed!", Toast.LENGTH_SHORT).show();
-                }
+            if (requestCode == 1 && resultCode == RESULT_OK
+                    && null != data) {
+
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                String[] fileName = {MediaStore.Images.Media.TITLE };
+
+                Cursor cursor = getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                pathgambar = cursor.getString(columnIndex);
+
+                Cursor cursornama = getContentResolver().query(selectedImage,
+                        fileName, null, null, null);
+                cursornama .moveToFirst();
+                int nameIndex = cursornama.getColumnIndex(fileName[0]);
+                namafile=pathgambar.substring(pathgambar.lastIndexOf('/')+1,pathgambar.length() );//cursornama.getString(nameIndex);
+                cursornama.close();
+                cursor.close();
+                ImageView img=(ImageView) findViewById(R.id.im_upload);
+                Log.d("Alamat",pathgambar);
+                Log.d("Nama File",namafile);
+                Log.d("Extendsi",namafile.substring(namafile.lastIndexOf(".")).replace(".",""));
+
+
+                Picasso.get()
+                        .load(new File(pathgambar))
+                        .into(img);
+                Toast.makeText(this, pathgambar,
+                        Toast.LENGTH_LONG).show();
+
+            } else {
+                Toast.makeText(this, "GAMBAR BELUM DIPILIH",
+                        Toast.LENGTH_LONG).show();
             }
-
-        } else if (requestCode == CAMERA) {
-            FixBitmap = (Bitmap) data.getExtras().get("image_data");
-            ShowSelectedImage.setImageBitmap(FixBitmap);
-            UploadImageOnServerButton.setVisibility(View.VISIBLE);
-            //  saveImage(thumbnail);
-            //Toast.makeText(ShadiRegistrationPart5.this, "Image Saved!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    public void UploadImageToServer(){
-
-        FixBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-
-        byteArray = byteArrayOutputStream.toByteArray();
-
-        ConvertImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-        class AsyncTaskUploadClass extends AsyncTask<Void,Void,String> {
-
-            @Override
-            protected void onPreExecute() {
-
-                super.onPreExecute();
-
-                progressDialog = ProgressDialog.show(CobaUpload.this,"Image is Uploading","Please Wait",false,false);
-            }
-
-            @Override
-            protected void onPostExecute(String string1) {
-
-                super.onPostExecute(string1);
-
-                progressDialog.dismiss();
-
-                Toast.makeText(CobaUpload.this,string1,Toast.LENGTH_LONG).show();
-
-            }
-
-            @Override
-            protected String doInBackground(Void... params) {
-
-                ImageProcessClass imageProcessClass = new ImageProcessClass();
-
-                HashMap<String,String> HashMapParams = new HashMap<String,String>();
-
-                HashMapParams.put(ImageName, GetImageNameFromEditText);
-
-                HashMapParams.put(ImageData, ConvertImage);
-
-                String FinalData = imageProcessClass.ImageHttpRequest("http://192.168.0.123/tpkkoja/index.php", HashMapParams);
-
-                return FinalData;
-            }
-        }
-        AsyncTaskUploadClass AsyncTaskUploadClassOBJ = new AsyncTaskUploadClass();
-        AsyncTaskUploadClassOBJ.execute();
-    }
-
-    public class ImageProcessClass{
-
-        public String ImageHttpRequest(String requestURL,HashMap<String, String> PData) {
-
-            StringBuilder stringBuilder = new StringBuilder();
-
-            try {
-                url = new URL(requestURL);
-
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-
-                httpURLConnection.setReadTimeout(20000);
-
-                httpURLConnection.setConnectTimeout(20000);
-
-                httpURLConnection.setRequestMethod("POST");
-
-                httpURLConnection.setDoInput(true);
-
-                httpURLConnection.setDoOutput(true);
-
-                outputStream = httpURLConnection.getOutputStream();
-
-                bufferedWriter = new BufferedWriter(
-
-                        new OutputStreamWriter(outputStream, "UTF-8"));
-
-                bufferedWriter.write(bufferedWriterDataFN(PData));
-
-                bufferedWriter.flush();
-
-                bufferedWriter.close();
-
-                outputStream.close();
-
-                RC = httpURLConnection.getResponseCode();
-
-                if (RC == HttpsURLConnection.HTTP_OK) {
-
-                    bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-
-                    stringBuilder = new StringBuilder();
-
-                    String RC2;
-
-                    while ((RC2 = bufferedReader.readLine()) != null){
-
-                        stringBuilder.append(RC2);
-                    }
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return stringBuilder.toString();
+        } catch (Exception e) {
+            Toast.makeText(this, "ERROR" + e.toString(), Toast.LENGTH_LONG)
+                    .show();
         }
 
-        private String bufferedWriterDataFN(HashMap<String, String> HashMapParams) throws UnsupportedEncodingException {
-
-            stringBuilder = new StringBuilder();
-
-            for (Map.Entry<String, String> KEY : HashMapParams.entrySet()) {
-                if (check)
-                    check = false;
-                else
-                    stringBuilder.append("&");
-
-                stringBuilder.append(URLEncoder.encode(KEY.getKey(), "UTF-8"));
-
-                stringBuilder.append("=");
-
-                stringBuilder.append(URLEncoder.encode(KEY.getValue(), "UTF-8"));
-            }
-
-            return stringBuilder.toString();
-        }
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 5) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Now user should be able to use camera
-
-            }
-            else {
-
-                Toast.makeText(CobaUpload.this, "Unable to use Camera..Please Allow us to use Camera", Toast.LENGTH_LONG).show();
-
-            }
-        }
     }
 }
 
