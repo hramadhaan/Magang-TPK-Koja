@@ -5,16 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tpkkoja.Dashboard;
 import com.example.tpkkoja.MainActivity;
 import com.example.tpkkoja.R;
+import com.example.tpkkoja.Services.PreferenceHelper;
 
 import java.io.IOException;
 
@@ -34,13 +38,28 @@ public class UploadPatrolSafe extends AppCompatActivity {
     Spinner safe_shift;
     ProgressBar safe_progress;
 
+    TextView judul;
+
+    Toolbar toolbar;
+
     private static final String url= "https://nyoobie.com/upload.php";
     private OkHttpClient client = new OkHttpClient();
+
+    private PreferenceHelper preferenceHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_patrol_safe);
+
+        preferenceHelper = new PreferenceHelper(getApplicationContext());
+
+        toolbar = findViewById(R.id.safe_toolbar);
+        judul = toolbar.findViewById(R.id.safe_judul);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         safe_nama = findViewById(R.id.upload_nama);
         safe_phone = findViewById(R.id.upload_phone);
@@ -50,7 +69,12 @@ public class UploadPatrolSafe extends AppCompatActivity {
         safe_shift = findViewById(R.id.upload_shift);
         safe_progress = findViewById(R.id.upload_progressbar);
         safe_department = findViewById(R.id.judul_department);
-        
+
+        safe_nama.setText(preferenceHelper.getNama());
+        safe_phone.setText(preferenceHelper.getPhone());
+        safe_position.setText(preferenceHelper.getPosition());
+        safe_department.setText(preferenceHelper.getDepartment());
+
         safe_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +109,12 @@ public class UploadPatrolSafe extends AppCompatActivity {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.d("On Failure",e.getStackTrace().toString());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(UploadPatrolSafe.this,"Upload gagal, coba lagi", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -95,8 +125,8 @@ public class UploadPatrolSafe extends AppCompatActivity {
                     @Override
                     public void run() {
                         safe_progress.setVisibility(View.INVISIBLE);
-                        Toast.makeText(UploadPatrolSafe.this,hasil,Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(UploadPatrolSafe.this, MainActivity.class));
+                        Toast.makeText(UploadPatrolSafe.this,"Upload Sukses",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(UploadPatrolSafe.this, Dashboard.class));
                         finish();
                     }
                 });

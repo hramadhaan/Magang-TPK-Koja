@@ -6,108 +6,195 @@
     android:layout_height="match_parent"
     tools:context=".AccountActivity.RegisterActivity">
 
-    <ImageView
-        android:id="@+id/register_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:src="@drawable/tpkkoja" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/register_judul"
-        android:text="Registrasi Akun"
-        android:fontFamily="@font/circularblack"
-        android:textSize="22dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/register_header"
-        android:layout_marginTop="20dp"/>
-
-    <RelativeLayout
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/register_judul"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/register_appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username :"
-            android:id="@+id/username"
-            android:fontFamily="@font/circularbook"
-            android:textSize="14dp"/>
-
-        <EditText
-            android:inputType="textPersonName"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/register_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/register_username"
-            android:fontFamily="@font/circularbook"
-            android:layout_below="@id/username"
-            android:layout_marginTop="10dp"
-            android:padding="7dp"
-            android:background="@drawable/edit_text_bg"/>
+            android:background="#fff">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/register_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daftar Akun Baru"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/circularblack"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/register_username"
-            android:id="@+id/password"
-            android:text="Password"
-            android:fontFamily="@font/circularbook"
-            android:textSize="14dp"
-            android:layout_marginTop="20dp"/>
+    <ScrollView
+        android:layout_below="@id/register_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <EditText
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/register_password"
-            android:layout_below="@id/password"
-            android:layout_marginTop="10dp"
-            android:inputType="textPassword"
-            android:fontFamily="@font/circularbook"
-            android:background="@drawable/edit_text_bg"
-            android:padding="7dp"/>
-
-        <Button
-            android:id="@+id/register_button"
-            android:layout_width="321dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/register_password"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/button_bg"
-            android:fontFamily="@font/circularblack"
-            android:text="Register"
-            android:textColor="#fff" />
-
-        <LinearLayout
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/register_button"
-            android:layout_alignParentRight="true">
-
+            android:layout_height="match_parent">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sudah punya akun ?"
-                android:fontFamily="@font/circularbook"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Klik Disini"
-                android:id="@+id/klik_disini"
-                android:textColor="#2B5876"
-                android:fontFamily="@font/circularbook"
-                android:textStyle="bold"/>
+                android:id="@+id/register_judul"
+                android:text="Personal Information"
+                android:fontFamily="@font/circularblack"
+                android:textSize="18dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
 
-        </LinearLayout>
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/register_judul"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp">
 
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama"
+                    android:id="@+id/nama"
+                    android:fontFamily="@font/circularbook"
+                    android:textSize="14dp"/>
+
+                <EditText
+                    android:id="@+id/register_nama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/nama"
+                    android:fontFamily="@font/circularbook"
+                    android:layout_marginTop="10dp"
+                    android:padding="7dp"
+                    android:background="@drawable/edit_text_bg"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/phone"
+                    android:layout_below="@id/register_nama"
+                    android:layout_marginTop="20dp"
+                    android:text="No. Handphone"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/circularbook"/>
+
+                <EditText
+                    android:layout_below="@id/phone"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_bg"
+                    android:padding="7dp"
+                    android:fontFamily="@font/circularbook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_phone"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/position_register"
+                    android:layout_below="@id/register_phone"
+                    android:layout_marginTop="20dp"
+                    android:text="Position"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/circularbook"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_position"
+                    android:layout_below="@id/position_register"
+                    android:fontFamily="@font/circularbook"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_bg"
+                    android:padding="7dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/department_register"
+                    android:text="Department"
+                    android:fontFamily="@font/circularbook"
+                    android:textSize="14dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/register_position"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_department"
+                    android:layout_below="@id/department_register"
+                    android:layout_marginTop="10dp"
+                    android:padding="7dp"
+                    android:background="@drawable/edit_text_bg"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username :"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/username"
+                    android:layout_below="@id/register_department"
+                    android:fontFamily="@font/circularbook"
+                    android:textSize="14dp"/>
+
+                <EditText
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_username"
+                    android:fontFamily="@font/circularbook"
+                    android:layout_below="@id/username"
+                    android:layout_marginTop="10dp"
+                    android:padding="7dp"
+                    android:background="@drawable/edit_text_bg"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/register_username"
+                    android:id="@+id/password"
+                    android:text="Password"
+                    android:fontFamily="@font/circularbook"
+                    android:textSize="14dp"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_password"
+                    android:layout_below="@id/password"
+                    android:layout_marginTop="10dp"
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/circularbook"
+                    android:background="@drawable/edit_text_bg"
+                    android:padding="7dp"/>
+
+                <Button
+                    android:id="@+id/register_button"
+                    android:layout_width="321dp"
+                    android:layout_height="42dp"
+                    android:layout_below="@id/register_password"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/blue"
+                    android:fontFamily="@font/circularblack"
+                    android:textSize="14dp"
+                    android:textAllCaps="false"
+                    android:layout_centerHorizontal="true"
+                    android:text="Register"
+                    android:textColor="#fff"
+                    android:layout_marginBottom="20dp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

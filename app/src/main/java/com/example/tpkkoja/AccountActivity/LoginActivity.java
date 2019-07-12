@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,8 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     private Toast backToast;
 
     Button btn_login;
-    TextView register;
+    TextView register,title;
     EditText user,pass;
+    Toolbar judul;
 
     ParseContent parseContent;
     PreferenceHelper preferenceHelper;
@@ -43,9 +45,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        judul = findViewById(R.id.login_judul);
+        title = judul.findViewById(R.id.login_title);
+        setSupportActionBar(judul);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btn_login = findViewById(R.id.login_button);
-        register = findViewById(R.id.register);
         user = findViewById(R.id.login_username);
         pass = findViewById(R.id.login_password);
 
@@ -70,13 +76,6 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-        });
-
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
             }
         });
 
@@ -131,17 +130,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (backPressedTime+2000>System.currentTimeMillis()){
-            backToast.cancel();
-            super.onBackPressed();
-            return;
-        } else {
-            backToast = Toast.makeText(this,"Tekan BACK untuk keluar",Toast.LENGTH_SHORT);
-            backToast.show();
-        }
-        backPressedTime = System.currentTimeMillis();
-    }
+
 
 }

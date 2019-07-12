@@ -3,79 +3,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.HomeFragment">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cv_cuaca"
+        <RelativeLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:cardElevation="7dp"
-            app:cardCornerRadius="10dp">
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/circularblack"
+                android:textSize="24dp"
+                android:maxLength="14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_hello" />
 
             <RelativeLayout
-                android:background="@drawable/bg"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/home_hello"
+                android:id="@+id/home_relative"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="300dp"
+                android:background="@drawable/blue">
 
-                <TextView
+                <RelativeLayout
+                    android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cuaca"
-                    android:fontFamily="@font/circularblack"
-                    android:textColor="#fff"
-                    android:textSize="18dp"/>
-
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textView_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_white"
+                        android:padding="8dp"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/circularblack"
+                        android:textSize="16dp"/>
+                    <TextView
+                        android:id="@+id/textView_temperature"
+                        android:layout_below="@+id/textView_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/circularblack"
+                        android:textColor="@color/white"
+                        android:textSize="40dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView_condition"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
+                        android:autoSizeTextType="uniform"
+                        android:textAllCaps="true"
+                        android:layout_below="@id/textView_temperature"
+                        android:fontFamily="@font/circularblack"
+                        android:textSize="22dp"/>
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:src="@drawable/clouds"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    />
             </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/home_menu"
-            android:text="Layanan"
-            android:layout_below="@id/cv_cuaca"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/circularblack"/>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cv_patrol"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/home_menu"
-            app:cardElevation="7dp"
-            app:cardCornerRadius="10dp">
-
             <TextView
+                android:id="@+id/home_fitur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Menu"/>
+                android:text="Fitur"
+                android:fontFamily="@font/circularblack"
+                android:textSize="24dp"
+                android:layout_below="@id/home_relative"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/home_recycler"
+                android:layout_below="@id/home_fitur"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
 
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/cv_soon"
-            android:layout_below="@id/cv_patrol"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Soon"/>
-
-        </android.support.v7.widget.CardView>
-
-    </RelativeLayout>
+    </ScrollView>
 
 </FrameLayout>

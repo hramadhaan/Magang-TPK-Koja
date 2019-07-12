@@ -32,9 +32,8 @@ import okhttp3.Response;
 public class CobaUpload extends AppCompatActivity {
     String pathgambar;
     String namafile;
-    private EditText im_edit;
     private ProgressBar progressBar;
-    private static final String urlix= "https://nyoobie.com/upload.php";
+    private static final String urlix= "https://cumabelajar.com/latihan/upload.php";
     private OkHttpClient client = new OkHttpClient();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,6 @@ public class CobaUpload extends AppCompatActivity {
         setContentView(R.layout.activity_coba_upload);
         progressBar=(ProgressBar)findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.INVISIBLE);
-        im_edit = findViewById(R.id.im_edit);
     }
     public void ambilGambar(View v){
         Intent i = new Intent(
@@ -58,7 +56,7 @@ public class CobaUpload extends AppCompatActivity {
         File file = new File(pathgambar);
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("filegambar", namafile, RequestBody.create(MEDIA_TYPE, file))
-                .addFormDataPart("caption", im_edit.getText().toString())
+                .addFormDataPart("pesan", "haloooooooooooooo ini percobaan")
                 .addFormDataPart("submit", "submit")
                 .build();
 

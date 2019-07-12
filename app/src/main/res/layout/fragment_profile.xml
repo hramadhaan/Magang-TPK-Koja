@@ -12,114 +12,56 @@
         android:layout_below="@id/toolbar_main"
         android:id="@+id/header_layout">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/header"
-            android:scaleType="centerCrop"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/userprofil"
-            app:civ_circle_background_color="@color/white"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/image_profile"
-            android:layout_margin="50dp"/>
-
-        <TextView
-            android:id="@+id/nama_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nama"
-            android:textStyle="bold"
-            android:fontFamily="@font/circularblack"
-            android:textSize="25dp"
-            android:layout_marginTop="-35dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
-            android:layout_below="@id/image_profile"/>
-
         <android.support.v7.widget.CardView
-            android:id="@+id/cv_risk"
-            android:layout_width="310dp"
-            android:layout_centerHorizontal="true"
-            android:layout_height="120dp"
-            android:layout_below="@id/nama_user"
-            android:layout_marginTop="30dp"
-            app:cardCornerRadius="13dp"
-            app:cardElevation="8dp">
+            android:layout_centerInParent="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="500dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/department"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/circularblack"
-                    android:text="Department:"
-                    android:textColor="#2B5876"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/nama_department"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginLeft="60dp"
-                    android:fontFamily="@font/circularblack"
-                    android:layout_toRightOf="@id/department"
-                    android:text="Nama"
-                    android:textColor="#2B5876"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/garis"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_below="@id/department"
-                    android:fontFamily="@font/circularblack"
-                    android:text="_________________________________________"
-                    android:textColor="#2B5876"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/position"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_below="@id/garis"
-                    android:fontFamily="@font/circularblack"
-                    android:text="Position:"
-                    android:textColor="#2B5876"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/nama_position"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginLeft="97dp"
-                    android:fontFamily="@font/circularblack"
-                    android:layout_toRightOf="@id/position"
-                    android:text="Nama"
-                    android:layout_below="@id/garis"
-                    android:textColor="#2B5876"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-
+                <RelativeLayout
+                    android:id="@+id/profile_atas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:src="@drawable/blue_normal"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/profile_header"
+                        android:textSize="22dp"
+                        android:text="User Profile"
+                        android:fontFamily="@font/circularblack"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/white"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_margin="10dp"
+                    android:layout_below="@id/profile_atas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/profile_judul_nama"
+                            android:text="Nama"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/circularbook"
+                            />
+                        <EditText
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/profile_nama"
+                            android:layout_below="@id/profile_judul_nama"
+                            android:padding="7dp"
+                            android:background="@drawable/edit_text_bg"/>
+                </RelativeLayout>
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>

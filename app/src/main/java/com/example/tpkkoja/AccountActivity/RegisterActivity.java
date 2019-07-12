@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +26,11 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText username,password;
+    EditText username,password,nama,phone,position,department;
     Button btn_register;
-    TextView login;
+    TextView login,judul;
+
+    Toolbar toolbar;
 
     PreferenceHelper preferenceHelper;
     ParseContent parseContent;
@@ -42,10 +45,20 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        toolbar = findViewById(R.id.register_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         username = findViewById(R.id.register_username);
         password = findViewById(R.id.register_password);
+        judul = toolbar.findViewById(R.id.register_title);
+        nama = findViewById(R.id.register_nama);
+        phone = findViewById(R.id.register_phone);
+        position = findViewById(R.id.register_position);
+        department = findViewById(R.id.register_department);
+
         btn_register = findViewById(R.id.register_button);
-        login = findViewById(R.id.klik_disini);
+
 
         preferenceHelper = new PreferenceHelper(this);
         parseContent = new ParseContent(this);
@@ -56,13 +69,6 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(intent);
             this.finish();
         }
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-            }
-        });
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +91,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
         Utils.showSimpleProgressDialog(RegisterActivity.this);
         final HashMap<String, String> map = new HashMap<>();
+        map.put(Constants.Params.NAMA,nama.getText().toString());
+        map.put(Constants.Params.PHONE,phone.getText().toString());
+        map.put(Constants.Params.POSITION,position.getText().toString());
+        map.put(Constants.Params.DEPARTMENT,department.getText().toString());
         map.put(Constants.Params.USERNAME, username.getText().toString());
         map.put(Constants.Params.PASSWORD, password.getText().toString());
         new AsyncTask<Void, Void, String>(){

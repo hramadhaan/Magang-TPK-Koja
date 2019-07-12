@@ -8,32 +8,35 @@
     tools:context=".MainActivity"
     android:background="#fff">
 
+<android.support.design.widget.AppBarLayout
+    android:id="@+id/risk_appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <android.support.v7.widget.Toolbar
+        android:id="@+id/risk_toolbar"
         android:layout_width="match_parent"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@drawable/splash_bg_2"
-        android:layout_height="wrap_content"
-        android:id="@+id/toolbar_upload_risk">
+        android:background="@color/white"
+        android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/risk_judul"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/toolbar_judul_upload_risk"
-                android:text="Safety Patrol"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:layout_centerHorizontal="true"/>
+                android:text="Risk Patrol"
+                android:fontFamily="@font/circularblack"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimaryDark"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
+</android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="0dp"
-        android:layout_below="@id/toolbar_upload_risk">
+        android:layout_below="@id/risk_appbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -68,7 +71,7 @@
                 android:background="@drawable/edit_text_bg"
                 android:padding="7dp"
                 android:layout_marginTop="5dp"
-                android:inputType="textCapSentences"/>
+                android:inputType="none"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -203,31 +206,69 @@
                 android:layout_toRightOf="@id/file_upload_risk"
                 android:layout_alignBaseline="@id/file_upload_risk"
                 android:text="Browse"
+                android:textAllCaps="false"
                 android:textSize="10dp"
                 android:fontFamily="@font/circularblack"
                 android:textStyle="bold"
-                android:background="@drawable/browse_bg"
+                android:background="@drawable/blue"
+                android:textColor="#fff"/>
+
+            <TextView
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/file_upload_risk_2"
+                android:maxLength="200"
+                android:text="No File Choosen"
+                android:layout_below="@id/file_upload_risk"
+                android:padding="7dp"
+                android:layout_marginTop="10dp"
+                android:background="#d3d3d3"/>
+
+            <Button
+                android:layout_marginLeft="10dp"
+                android:layout_width="130dp"
+                android:layout_height="33dp"
+                android:id="@+id/button_choose_file_2"
+                android:layout_toRightOf="@id/file_upload_risk_2"
+                android:layout_alignBaseline="@id/file_upload_risk_2"
+                android:text="Browse 2"
+                android:textAllCaps="false"
+                android:textSize="10dp"
+                android:fontFamily="@font/circularblack"
+                android:textStyle="bold"
+                android:background="@drawable/blue"
                 android:textColor="#fff"/>
 
             <ImageView
                 android:layout_marginTop="10dp"
                 android:id="@+id/image_risk"
-                android:layout_below="@id/file_upload_risk"
+                android:layout_below="@id/file_upload_risk_2"
                 android:layout_width="match_parent"
-                android:src="@mipmap/ic_launcher_round"
                 android:layout_height="wrap_content"
+                android:elevation="8dp"
+                android:scaleType="fitCenter"/>
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:id="@+id/image_risk_2"
+                android:layout_below="@id/image_risk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
                 android:scaleType="fitCenter"/>
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
                 android:id="@+id/upload_button_risk"
-                android:layout_below="@id/image_risk"
+                android:layout_below="@id/image_risk_2"
                 android:layout_marginTop="25dp"
-                android:text="submit"
+                android:textAllCaps="false"
+                android:textSize="14dp"
+                android:text="Submit"
                 android:fontFamily="@font/circularblack"
                 android:textStyle="bold"
-                android:background="@drawable/button_bg"
+                android:background="@drawable/blue"
                 android:textColor="#fff"/>
 
         </RelativeLayout>

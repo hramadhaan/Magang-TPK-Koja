@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AwalActivity">
+
+    <ImageView
+        android:id="@+id/awal_gambar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:src="@drawable/shipard"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/awal_pertama"
+        android:text="Safety Patrol"
+        android:layout_marginTop="20dp"
+        android:textSize="32dp"
+        android:fontFamily="@font/circularblack"
+        android:layout_below="@id/awal_gambar"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:paddingRight="60dp"
+        android:paddingLeft="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/awal_pertama"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:text="Sebuah aplikasi yang memudahkan safety patrol dalam melakukan tugasnya agar lebih efektif dan efesien"
+        android:fontFamily="@font/circularbook"
+        android:textSize="14dp"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@drawable/blue"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:text="Buat Akun Baru"
+        android:textSize="14dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/circularbook"
+        android:textColor="@color/white"
+        android:layout_marginBottom="70dp"
+        />
+
+    <TextView
+        android:text="Login"
+        android:layout_marginTop="-50dp"
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:fontFamily="@font/circularbook"
+        android:textColor="#0033ee"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btn_register"/>
+
+</RelativeLayout>

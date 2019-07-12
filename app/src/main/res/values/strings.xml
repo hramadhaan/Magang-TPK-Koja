@@ -35,4 +35,6 @@
     <string name="string_unable_to_pick_image">Unable to Pickup Image</string>
     <string name="string_unable_to_load_image">Unable to Load Image</string>
     <string name="action_settings">Settings</string>
+
+
 </resources>

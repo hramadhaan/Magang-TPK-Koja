@@ -1,7 +1,12 @@
 package com.example.tpkkoja;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,9 +15,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpkkoja.AccountActivity.LoginActivity;
+import com.example.tpkkoja.Content.ListUpload;
 import com.example.tpkkoja.Fragment.HomeFragment;
 import com.example.tpkkoja.Fragment.PagerAdapter;
 import com.example.tpkkoja.Fragment.ProfileFragment;
@@ -22,6 +29,9 @@ import com.example.tpkkoja.Services.PreferenceHelper;
 public class Dashboard extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener {
 
     PreferenceHelper preferenceHelper;
+    BottomNavigationView bottomNavigationView;
+    Fragment fragment;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,33 +41,32 @@ public class Dashboard extends AppCompatActivity implements HomeFragment.OnFragm
         preferenceHelper = new PreferenceHelper(this);
 
         Toolbar toolbar = findViewById(R.id.dashboard_toolbar);
-        ImageView judul = toolbar.findViewById(R.id.dashboard_judul);
+        TextView judul = toolbar.findViewById(R.id.dashboard_judul);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TabLayout tabLayout = findViewById(R.id.dashboard_tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Menu"));
-        tabLayout.addTab(tabLayout.newTab().setText("Profile"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        bottomNavigationView = findViewById(R.id.dashboard_bottom);
 
-        final ViewPager viewPager = findViewById(R.id.dashboard_viewpager);
-        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+        fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction().replace(R.id.dashboard_frame,new HomeFragment()).commit();
+
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.bottom_home:
+                        fragment = new HomeFragment();
+                        break;
+                    case R.id.bottom_profile:
+                        fragment = new ProfileFragment();
+                        break;
+                }
+                final FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.dashboard_frame,fragment).commit();
+                return true;
             }
         });
 
@@ -70,11 +79,11 @@ public class Dashboard extends AppCompatActivity implements HomeFragment.OnFragm
                 Toast.makeText(this,"Profile",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.setting:
-                Toast.makeText(this,"Setting",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Dashboard.this, ListUpload.class));
                 break;
             case R.id.logout:
                 preferenceHelper.putIsLogin(false);
-                Intent intent = new Intent(Dashboard.this, LoginActivity.class);
+                Intent intent = new Intent(Dashboard.this, AwalActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 Dashboard.this.finish();

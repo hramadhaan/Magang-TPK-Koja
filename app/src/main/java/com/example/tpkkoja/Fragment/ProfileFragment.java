@@ -16,7 +16,7 @@ import com.example.tpkkoja.Services.PreferenceHelper;
 
 
 public class ProfileFragment extends Fragment {
-    TextView nama;
+    TextView nama,department,position;
     private PreferenceHelper preferenceHelper;
 
 
@@ -27,8 +27,13 @@ public class ProfileFragment extends Fragment {
 
         preferenceHelper = new PreferenceHelper(getContext());
 
-        nama = view.findViewById(R.id.nama_user);
+//        nama = view.findViewById(R.id.nama_user);
+//        position = view.findViewById(R.id.nama_position);
+//        department = view.findViewById(R.id.nama_department);
+
         nama.setText(preferenceHelper.getUsername());
+        position.setText(preferenceHelper.getPosition());
+        department.setText(preferenceHelper.getDepartment());
 
         return view;
     }

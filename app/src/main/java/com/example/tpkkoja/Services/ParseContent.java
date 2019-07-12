@@ -63,6 +63,10 @@ public class ParseContent {
 
                     JSONObject dataobj = dataArray.getJSONObject(i);
                     preferenceHelper.putUsername(dataobj.getString(Constants.Params.USERNAME));
+                    preferenceHelper.putNama(dataobj.getString(Constants.Params.NAMA));
+                    preferenceHelper.putPhone(dataobj.getString(Constants.Params.PHONE));
+                    preferenceHelper.putPosition(dataobj.getString(Constants.Params.POSITION));
+                    preferenceHelper.putDepartment(dataobj.getString(Constants.Params.DEPARTMENT));
                 }
             }
         } catch (JSONException e) {
