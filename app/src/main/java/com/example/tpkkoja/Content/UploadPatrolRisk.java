@@ -136,7 +136,11 @@ public class UploadPatrolRisk extends AppCompatActivity {
         risk_file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseFile();
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
             }
         });
 
@@ -151,7 +155,7 @@ public class UploadPatrolRisk extends AppCompatActivity {
     private void chooseFile2() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent,1);
-        }
+    }
 
     private void chooseFile() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -179,7 +183,7 @@ public class UploadPatrolRisk extends AppCompatActivity {
                 .addFormDataPart("deskripsi",risk_deskripsi.getText().toString())
                 .addFormDataPart("tipe","RISK")
                 .addFormDataPart("filegambar1",filename1,RequestBody.create(MEDIA_TYPE,file1))
-                .addFormDataPart("filegambar2",filename2,RequestBody.create(MEDIA_TYPE,file2))
+                .addFormDataPart("filegambar2",filename2,RequestBody.create(MEDIA_TYPE_2,file2))
                 .addFormDataPart("submit","submit")
                 .build();
 
@@ -223,38 +227,30 @@ public class UploadPatrolRisk extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             if (requestCode==1 && resultCode==RESULT_OK && null!=data) {
-               Uri selectedImage = data.getData();
-               String[] filePathColumn = { MediaStore.Images.Media.DATA };
-               String[] fileName = { MediaStore.Images.Media.TITLE };
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                String[] fileName = { MediaStore.Images.Media.TITLE };
 
-               Cursor cursor = getContentResolver().query(selectedImage,filePathColumn,null,null,null);
-               cursor.moveToFirst();
+                Cursor cursor = getContentResolver().query(selectedImage,filePathColumn,null,null,null);
+                cursor.moveToFirst();
 
-                Cursor cursor2 = getContentResolver().query(selectedImage,filePathColumn,null,null,null);
-                cursor2.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                int columnIndex2 = cursor.getColumnIndex(filePathColumn[1]);
 
-               int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-               pathgambar = cursor.getString(columnIndex);
-
-               int columnIndex2 = cursor.getColumnIndex(filePathColumn[1]);
-               pathgrambar2 = cursor2.getString(columnIndex2);
+                pathgrambar2 = cursor.getString(columnIndex2);
+                pathgambar = cursor.getString(columnIndex);
 
                 Cursor cursornama = getContentResolver().query(selectedImage,fileName,null,null,null);
                 cursornama.moveToFirst();
 
-                Cursor cursornama2 = getContentResolver().query(selectedImage,fileName,null,null,null);
-                cursornama2.moveToFirst();
-
                 int nameIndex = cursornama.getColumnIndex(fileName[0]);
-                int namaIndex2 = cursornama2.getColumnIndex(fileName[1]);
 
                 filename1 = pathgambar.substring(pathgambar.lastIndexOf('/')+1,pathgambar.length());
+                filename2 = pathgrambar2.substring(pathgrambar2.lastIndexOf('/')+1,pathgrambar2.length());
                 cursornama.close();
                 cursor.close();
 
                 filename2 = pathgrambar2.substring(pathgrambar2.lastIndexOf('/')+1,pathgrambar2.length());
-                cursornama2.close();
-                cursor.close();
 
                 textview_choose.setText(filename1);
 
