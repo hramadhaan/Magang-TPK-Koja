@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.tpkkoja.R;
@@ -16,9 +17,8 @@ import com.example.tpkkoja.Services.PreferenceHelper;
 
 
 public class ProfileFragment extends Fragment {
-    TextView nama,department,position;
+    EditText nama,phone,position,department;
     private PreferenceHelper preferenceHelper;
-
 
     @Nullable
     @Override
@@ -26,12 +26,13 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile,container,false);
 
         preferenceHelper = new PreferenceHelper(getContext());
+        nama = view.findViewById(R.id.profile_nama);
+        phone = view.findViewById(R.id.profile_telp);
+        position = view.findViewById(R.id.profile_position);
+        department = view.findViewById(R.id.profile_department);
 
-//        nama = view.findViewById(R.id.nama_user);
-//        position = view.findViewById(R.id.nama_position);
-//        department = view.findViewById(R.id.nama_department);
-
-        nama.setText(preferenceHelper.getUsername());
+        nama.setText(preferenceHelper.getNama());
+        phone.setText(preferenceHelper.getPhone());
         position.setText(preferenceHelper.getPosition());
         department.setText(preferenceHelper.getDepartment());
 

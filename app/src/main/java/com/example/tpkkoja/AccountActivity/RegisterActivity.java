@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +27,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText username,password,nama,phone,position,department;
+    EditText username,password,nama,phone;
+    Spinner position,department;
     Button btn_register;
     TextView login,judul;
 
@@ -93,8 +95,8 @@ public class RegisterActivity extends AppCompatActivity {
         final HashMap<String, String> map = new HashMap<>();
         map.put(Constants.Params.NAMA,nama.getText().toString());
         map.put(Constants.Params.PHONE,phone.getText().toString());
-        map.put(Constants.Params.POSITION,position.getText().toString());
-        map.put(Constants.Params.DEPARTMENT,department.getText().toString());
+        map.put(Constants.Params.POSITION,position.getSelectedItem().toString());
+        map.put(Constants.Params.DEPARTMENT,department.getSelectedItem().toString());
         map.put(Constants.Params.USERNAME, username.getText().toString());
         map.put(Constants.Params.PASSWORD, password.getText().toString());
         new AsyncTask<Void, Void, String>(){

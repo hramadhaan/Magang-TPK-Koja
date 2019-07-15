@@ -47,6 +47,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,6 +68,14 @@ public class UploadPatrolRisk extends AppCompatActivity {
 
     String pathgambar,pathgrambar2,filename1,filename2;
 
+    String mime = "";
+    String mime2 = "";
+
+
+
+
+    public static int PERTAMA = 1;
+
     EditText risk_name,risk_phone,risk_position,risk_department,risk_deskripsi;
     Button risk_file,risk_upload,risk_file2;
     ImageView risk_image,risk_image2;
@@ -81,28 +90,34 @@ public class UploadPatrolRisk extends AppCompatActivity {
     private static final String urlix= "https://nyoobie.com/upload.php";
     private OkHttpClient client = new OkHttpClient();
 
+    MediaType MEDIA_TYPE,MEDIA_TYPE_2;
+    File file1,file2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_patrol_risk);
+        Toast.makeText(this,"Masukkan 3 Gambar, Jika tidak maka tidak terkirim",Toast.LENGTH_LONG).show();
 
-
+        pathgambar = "";
+        pathgrambar2 = "";
+        filename1 = "";
+        filename2 ="";
+        MEDIA_TYPE = MediaType.parse("");
+        MEDIA_TYPE_2 = MediaType.parse("");
+        file1 = new File("");
+        file2 = new File("");
 
         risk_image2 = findViewById(R.id.image_risk_2);
-
         textview_choose_2 = findViewById(R.id.file_upload_risk_2);
-
         risk_file2 = findViewById(R.id.button_choose_file_2);
-
         risk_file2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseFile2();
             }
         });
-
         preferenceHelper = new PreferenceHelper(getApplicationContext());
-
         toolbar = findViewById(R.id.risk_toolbar);
         judul = toolbar.findViewById(R.id.risk_judul);
 
@@ -130,20 +145,12 @@ public class UploadPatrolRisk extends AppCompatActivity {
         risk_department.setInputType(InputType.TYPE_NULL);
 
         textview_choose = findViewById(R.id.file_upload_risk);
-
         risk_progress = findViewById(R.id.risk_progressbar);
-
         risk_file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
-            }
+                chooseFile();}
         });
-
         risk_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +161,7 @@ public class UploadPatrolRisk extends AppCompatActivity {
 
     private void chooseFile2() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent,2);
     }
 
     private void chooseFile() {
@@ -165,115 +172,134 @@ public class UploadPatrolRisk extends AppCompatActivity {
 
     private void uploadImage() {
         risk_progress.setVisibility(View.VISIBLE);
-        String mime = "image/"+filename1.substring(filename1.lastIndexOf(".")).replace(".","");
-        String mime2 = "image/"+filename2.substring(filename2.lastIndexOf(".")).replace(".","");
 
-        final MediaType MEDIA_TYPE = MediaType.parse(mime);
-        final MediaType MEDIA_TYPE_2 = MediaType.parse(mime2);
+//        PHOTO PERTAMA
+//        MEDIA_TYPE = MediaType.parse(mime);
+        file1 = new File(pathgambar);
 
-        File file1 = new File(pathgambar);
-        File file2 = new File(pathgrambar2);
+//        PHOTO KEDUA
+//        MEDIA_TYPE_2 = MediaType.parse(mime2);
+        file2 = new File(pathgrambar2);
 
-        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("nama",risk_name.getText().toString())
-                .addFormDataPart("phone",risk_phone.getText().toString())
-                .addFormDataPart("position",risk_position.getText().toString())
-                .addFormDataPart("department",risk_department.getText().toString())
-                .addFormDataPart("shift",risk_shift.getSelectedItem().toString())
-                .addFormDataPart("deskripsi",risk_deskripsi.getText().toString())
-                .addFormDataPart("tipe","RISK")
-                .addFormDataPart("filegambar1",filename1,RequestBody.create(MEDIA_TYPE,file1))
-                .addFormDataPart("filegambar2",filename2,RequestBody.create(MEDIA_TYPE_2,file2))
-                .addFormDataPart("submit","submit")
-                .build();
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("nama",risk_name.getText().toString())
+                    .addFormDataPart("phone",risk_phone.getText().toString())
+                    .addFormDataPart("position",risk_position.getText().toString())
+                    .addFormDataPart("department",risk_department.getText().toString())
+                    .addFormDataPart("shift",risk_shift.getSelectedItem().toString())
+                    .addFormDataPart("deskripsi",risk_deskripsi.getText().toString())
+                    .addFormDataPart("tipe","RISK")
+                    .addFormDataPart("filegambar1",filename1,RequestBody.create(MediaType.parse("image/*"),file1))
+                    .addFormDataPart("filegambar2",filename2,RequestBody.create(MediaType.parse("image/*"),file2))
+                    .addFormDataPart("submit","submit")
+                    .build();
 
-        Request request = new Request.Builder()
-                .url(urlix)
-                .post(requestBody)
-                .cacheControl(new CacheControl.Builder().noCache().build())
-                .build();
+            Request request = new Request.Builder()
+                    .url(urlix)
+                    .post(requestBody)
+                    .cacheControl(new CacheControl.Builder().noCache().build())
+                    .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("On Failure",e.getStackTrace().toString());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(UploadPatrolRisk.this,"Upload Gagal, Coba Ulangi",Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d("On Failure",e.getStackTrace().toString());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(UploadPatrolRisk.this,"Harap Masukkan 2 Gambar atau Ulangi Kembali ",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String hasil = response.body().string();
-                Log.d("Response",hasil);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        risk_progress.setVisibility(View.INVISIBLE);
-                        Toast.makeText(UploadPatrolRisk.this,"Upload Sukses",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(UploadPatrolRisk.this, Dashboard.class));
-                        finish();
-                    }
-                });
-            }
-        });
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    final String hasil = response.body().string();
+                    Log.d("Response",hasil);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            risk_progress.setVisibility(View.INVISIBLE);
+                            Toast.makeText(UploadPatrolRisk.this,"Upload Sukses",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(UploadPatrolRisk.this, Dashboard.class));
+                            finish();
+                        }
+                    });
+                }
+            });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode==1 && resultCode==RESULT_OK && null!=data) {
-                Uri selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                String[] fileName = { MediaStore.Images.Media.TITLE };
+            if (resultCode==RESULT_OK && null!=data) {
+                if (requestCode==1) {
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                    String[] fileName = { MediaStore.Images.Media.TITLE };
 
-                Cursor cursor = getContentResolver().query(selectedImage,filePathColumn,null,null,null);
-                cursor.moveToFirst();
+                    Cursor cursor = getContentResolver().query(selectedImage,filePathColumn,null,null,null);
+                    cursor.moveToFirst();
 
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                int columnIndex2 = cursor.getColumnIndex(filePathColumn[1]);
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    pathgambar = cursor.getString(columnIndex);
 
-                pathgrambar2 = cursor.getString(columnIndex2);
-                pathgambar = cursor.getString(columnIndex);
+                    Cursor cursornama = getContentResolver().query(selectedImage,fileName,null,null,null);
+                    cursornama.moveToFirst();
 
-                Cursor cursornama = getContentResolver().query(selectedImage,fileName,null,null,null);
-                cursornama.moveToFirst();
+                    int nameIndex = cursornama.getColumnIndex(fileName[0]);
 
-                int nameIndex = cursornama.getColumnIndex(fileName[0]);
+                    filename1 = pathgambar.substring(pathgambar.lastIndexOf('/')+1,pathgambar.length());
+                    cursornama.close();
+                    cursor.close();
 
-                filename1 = pathgambar.substring(pathgambar.lastIndexOf('/')+1,pathgambar.length());
-                filename2 = pathgrambar2.substring(pathgrambar2.lastIndexOf('/')+1,pathgrambar2.length());
-                cursornama.close();
-                cursor.close();
+                    textview_choose.setText(filename1);
 
-                filename2 = pathgrambar2.substring(pathgrambar2.lastIndexOf('/')+1,pathgrambar2.length());
+                    Log.d("Alamat",pathgambar);
+                    Log.d("Nama File",filename1);
+                    Log.d("Extensi ",filename1.substring(filename1.lastIndexOf('.')).replace(".",""));
 
-                textview_choose.setText(filename1);
+                    Picasso.get()
+                            .load(new File(pathgambar))
+                            .into(risk_image);
 
-                textview_choose_2.setText(filename2);
+                    Toast.makeText(UploadPatrolRisk.this,pathgambar,Toast.LENGTH_LONG).show();
+                }
 
-                Log.d("Alamat",pathgambar);
-                Log.d("Nama File",filename1);
-                Log.d("Extensi ",filename1.substring(filename1.lastIndexOf('.')).replace(".",""));
+                if (requestCode==2) {
+                    Uri selectedImage2 = data.getData();
+                    String[] filePathColumn2 = { MediaStore.Images.Media.DATA };
+                    String[] fileName2 = { MediaStore.Images.Media.TITLE };
 
-                Log.d("Alamat",pathgrambar2);
-                Log.d("Nama File",filename2);
-                Log.d("Extensi ",filename2.substring(filename2.lastIndexOf('.')).replace(".",""));
+                    Cursor cursor2 = getContentResolver().query(selectedImage2,filePathColumn2,null,null,null);
+                    cursor2.moveToFirst();
 
-                Picasso.get()
-                        .load(new File(pathgambar))
-                        .into(risk_image);
+                    int columnIndex2 = cursor2.getColumnIndex(filePathColumn2[0]);
+                    pathgrambar2 = cursor2.getString(columnIndex2);
 
-                Picasso.get()
-                        .load(new File(pathgrambar2))
-                        .into(risk_image2);
+                    Cursor cursornama2 = getContentResolver().query(selectedImage2,fileName2,null,null,null);
+                    cursornama2.moveToFirst();
 
-                Toast.makeText(UploadPatrolRisk.this,pathgambar,Toast.LENGTH_LONG).show();
+                    int nameIndex2 = cursornama2.getColumnIndex(fileName2[0]);
 
+                    filename2 = pathgrambar2.substring(pathgrambar2.lastIndexOf('/')+1,pathgrambar2.length());
+                    cursornama2.close();
+                    cursor2.close();
+
+                    textview_choose_2.setText(filename2);
+
+                    Log.d("Alamat",pathgrambar2);
+                    Log.d("Nama File",filename2);
+                    Log.d("Extensi ",filename2.substring(filename2.lastIndexOf('.')).replace(".",""));
+
+                    Picasso.get()
+                            .load(new File(pathgrambar2))
+                            .into(risk_image2);
+
+                    Toast.makeText(UploadPatrolRisk.this,pathgrambar2,Toast.LENGTH_LONG).show();
+                }
             } else {
                 Toast.makeText(UploadPatrolRisk.this,"Gambar Pilih Terlebih Dahulu",Toast.LENGTH_LONG).show();
             }
@@ -282,3 +308,4 @@ public class UploadPatrolRisk extends AppCompatActivity {
         }
     }
 }
+

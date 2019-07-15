@@ -51,6 +51,7 @@
                             android:id="@+id/profile_judul_nama"
                             android:text="Nama"
                             android:textSize="14dp"
+                            android:textColor="#5c5c5c"
                             android:fontFamily="@font/circularbook"
                             />
                         <EditText
@@ -60,7 +61,65 @@
                             android:id="@+id/profile_nama"
                             android:layout_below="@id/profile_judul_nama"
                             android:padding="7dp"
+                            android:textColor="#5c5c5c"
                             android:background="@drawable/edit_text_bg"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/profile_judul_telp"
+                            android:layout_below="@id/profile_nama"
+                            android:layout_marginTop="10dp"
+                            android:textSize="14dp"
+                            android:textColor="#5c5c5c"
+                            android:text="No. Telp"
+                            android:fontFamily="@font/circularbook"/>
+                        <EditText
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/profile_telp"
+                            android:layout_below="@id/profile_judul_telp"
+                            android:padding="7dp"
+                            android:textColor="#5c5c5c"
+                            android:background="@drawable/edit_text_bg"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/profile_judul_department"
+                        android:layout_below="@id/profile_telp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14dp"
+                        android:text="Department"
+                        android:textColor="#5c5c5c"
+                        android:fontFamily="@font/circularbook"/>
+                    <EditText
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/profile_department"
+                        android:layout_below="@id/profile_judul_department"
+                        android:padding="7dp"
+                        android:textColor="#5c5c5c"
+                        android:background="@drawable/edit_text_bg"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/profile_judul_position"
+                        android:layout_below="@id/profile_department"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14dp"
+                        android:text="Position"
+                        android:textColor="#5c5c5c"
+                        android:fontFamily="@font/circularbook"/>
+                    <EditText
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/profile_position"
+                        android:layout_below="@id/profile_judul_position"
+                        android:padding="7dp"
+                        android:textColor="#5c5c5c"
+                        android:background="@drawable/edit_text_bg"/>
                 </RelativeLayout>
             </RelativeLayout>
 

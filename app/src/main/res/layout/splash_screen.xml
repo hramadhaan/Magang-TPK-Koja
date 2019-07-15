@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashScreen"
-    android:background="@drawable/splash_bg">
+    android:background="#fff">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/tpkkojaputih"
+        android:src="@drawable/tpkkoja"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>

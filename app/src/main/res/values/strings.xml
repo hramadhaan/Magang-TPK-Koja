@@ -17,6 +17,39 @@
         <item>3</item>
     </string-array>
 
+    <string-array name="Position">Shift
+        <item>Admin Stock</item>
+        <item>Staff</item>
+        <item>Supervisor</item>
+        <item>Manager</item>
+    </string-array>
+
+    <string-array name="Department">Shift
+        <item>Akuntansi Management</item>
+        <item>DGM Keuangan</item>
+        <item>DGM Komersial</item>
+        <item>DGM Operasi</item>
+        <item>Administrasi Umum dan Rumah Tangga</item>
+        <item>Akuntansi Keuangan dan Pajak</item>
+        <item>DGM SDM dan Administrasi</item>
+        <item>Fasilitas dan Utilitas</item>
+        <item>General Manager</item>
+        <item>Health Safety Security dan Environment</item>
+        <item>Hukum</item>
+        <item>Internal Audit</item>
+        <item>Perencanaan dan Pengendalian</item>
+        <item>Peralatan</item>
+        <item>Pengembangan Bisnis</item>
+        <item>Pengadaan</item>
+        <item>Pendukung Operasi</item>
+        <item>Operasi Terminal</item>
+        <item>Marketing</item>
+        <item>QA dan SMO</item>
+        <item>Sistem Informasi</item>
+        <item>Staff Manajemen</item>
+        <item>Sumber Daya Manusia</item>
+    </string-array>
+
     <string name="uploadImages">Set your image</string>
     <string name="msg_loading">Loading...</string>
     <!-- TODO: Remove or change this placeholder text -->

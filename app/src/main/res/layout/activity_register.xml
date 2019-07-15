@@ -97,42 +97,41 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/position_register"
-                    android:layout_below="@id/register_phone"
-                    android:layout_marginTop="20dp"
-                    android:text="Position"
-                    android:textSize="14dp"
-                    android:fontFamily="@font/circularbook"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/register_position"
-                    android:layout_below="@id/position_register"
-                    android:fontFamily="@font/circularbook"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/edit_text_bg"
-                    android:padding="7dp"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/department_register"
                     android:text="Department"
                     android:fontFamily="@font/circularbook"
                     android:textSize="14dp"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@id/register_position"/>
+                    android:layout_below="@id/register_phone"/>
 
-                <EditText
+                <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/register_department"
+                    android:entries="@array/Department"
                     android:layout_below="@id/department_register"
                     android:layout_marginTop="10dp"
-                    android:padding="7dp"
-                    android:background="@drawable/edit_text_bg"/>
+                    android:padding="7dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/position_register"
+                    android:layout_below="@id/register_department"
+                    android:layout_marginTop="20dp"
+                    android:text="Position"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/circularbook"/>
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_position"
+                    android:layout_below="@id/position_register"
+                    android:entries="@array/Position"
+                    android:fontFamily="@font/circularbook"
+                    android:layout_marginTop="10dp"
+                    android:padding="7dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,7 +139,7 @@
                     android:text="Username :"
                     android:layout_marginTop="20dp"
                     android:id="@+id/username"
-                    android:layout_below="@id/register_department"
+                    android:layout_below="@id/register_position"
                     android:fontFamily="@font/circularbook"
                     android:textSize="14dp"/>
 
@@ -192,9 +191,6 @@
                     android:layout_marginBottom="20dp"/>
 
             </RelativeLayout>
-
         </RelativeLayout>
-
     </ScrollView>
-
 </RelativeLayout>
