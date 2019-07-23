@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +33,13 @@ public class ProfileFragment extends Fragment {
         department = view.findViewById(R.id.profile_department);
 
         nama.setText(preferenceHelper.getNama());
+        nama.setInputType(InputType.TYPE_NULL);
         phone.setText(preferenceHelper.getPhone());
+        phone.setInputType(InputType.TYPE_NULL);
         position.setText(preferenceHelper.getPosition());
+        position.setInputType(InputType.TYPE_NULL);
         department.setText(preferenceHelper.getDepartment());
+        department.setInputType(InputType.TYPE_NULL);
 
         return view;
     }

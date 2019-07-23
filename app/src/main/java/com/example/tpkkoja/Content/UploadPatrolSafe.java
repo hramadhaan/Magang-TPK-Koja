@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -71,9 +72,13 @@ public class UploadPatrolSafe extends AppCompatActivity {
         safe_department = findViewById(R.id.judul_department);
 
         safe_nama.setText(preferenceHelper.getNama());
+        safe_nama.setInputType(InputType.TYPE_NULL);
         safe_phone.setText(preferenceHelper.getPhone());
+        safe_phone.setInputType(InputType.TYPE_NULL);
         safe_position.setText(preferenceHelper.getPosition());
+        safe_position.setInputType(InputType.TYPE_NULL);
         safe_department.setText(preferenceHelper.getDepartment());
+        safe_department.setInputType(InputType.TYPE_NULL);
 
         safe_upload.setOnClickListener(new View.OnClickListener() {
             @Override

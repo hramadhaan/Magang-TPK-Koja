@@ -79,8 +79,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/phone"
                     android:layout_below="@id/register_nama"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:text="No. Handphone"
+
                     android:textSize="14dp"
                     android:fontFamily="@font/circularbook"/>
 
@@ -89,6 +90,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_bg"
                     android:padding="7dp"
+                    android:inputType="phone"
                     android:fontFamily="@font/circularbook"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,7 +103,7 @@
                     android:text="Department"
                     android:fontFamily="@font/circularbook"
                     android:textSize="14dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:layout_below="@id/register_phone"/>
 
                 <Spinner
@@ -118,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/position_register"
                     android:layout_below="@id/register_department"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:text="Position"
                     android:textSize="14dp"
                     android:fontFamily="@font/circularbook"/>
@@ -137,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Username :"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:id="@+id/username"
                     android:layout_below="@id/register_position"
                     android:fontFamily="@font/circularbook"
@@ -162,7 +164,7 @@
                     android:text="Password"
                     android:fontFamily="@font/circularbook"
                     android:textSize="14dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="15dp"/>
 
                 <EditText
                     android:layout_width="match_parent"

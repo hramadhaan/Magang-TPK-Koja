@@ -75,9 +75,6 @@ public class Dashboard extends AppCompatActivity implements HomeFragment.OnFragm
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.profile:
-                Toast.makeText(this,"Profile",Toast.LENGTH_SHORT).show();
-                break;
             case R.id.setting:
                 startActivity(new Intent(Dashboard.this, ListUpload.class));
                 break;

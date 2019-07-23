@@ -3,8 +3,10 @@ package com.example.tpkkoja.Content;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpkkoja.R;
@@ -26,13 +28,20 @@ public class ListUpload extends AppCompatActivity {
 
     ListView listView;
     ArrayAdapter<String> adapter;
+    Toolbar toolbar;
+    TextView judul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_upload);
 
+        toolbar = findViewById(R.id.list_toolbar);
+        judul = toolbar.findViewById(R.id.list_judul);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         listView = findViewById(R.id.list_upload);
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
@@ -94,10 +103,7 @@ public class ListUpload extends AppCompatActivity {
                     Toast.makeText(ListUpload.this,"No Data",Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {
-                Toast.makeText(ListUpload.this,e.getMessage(),Toast.LENGTH_LONG).show();
             }
-
-            Toast.makeText(ListUpload.this,result,Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -65,14 +65,10 @@ import okhttp3.Response;
 
 public class UploadPatrolRisk extends AppCompatActivity {
 
-
     String pathgambar,pathgrambar2,filename1,filename2;
 
     String mime = "";
     String mime2 = "";
-
-
-
 
     public static int PERTAMA = 1;
 
