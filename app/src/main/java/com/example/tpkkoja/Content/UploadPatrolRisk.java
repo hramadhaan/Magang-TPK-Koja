@@ -83,7 +83,7 @@ public class UploadPatrolRisk extends AppCompatActivity {
 
     private PreferenceHelper preferenceHelper;
 
-    private static final String urlix= "https://nyoobie.com/upload.php";
+    private static final String urlix= "https://tpkkoja.nyoobie.com/connect/mobile/upload.php";
     private OkHttpClient client = new OkHttpClient();
 
     MediaType MEDIA_TYPE,MEDIA_TYPE_2;

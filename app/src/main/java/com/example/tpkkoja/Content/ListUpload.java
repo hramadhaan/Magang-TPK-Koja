@@ -55,7 +55,7 @@ public class ListUpload extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String result = "";
-            String host = "https://nyoobie.com/connect/lihat.php";
+            String host = "https://tpkkoja.nyoobie.com/connect/mobile/lihat.php";
 
             try {
                 HttpClient client = new DefaultHttpClient();

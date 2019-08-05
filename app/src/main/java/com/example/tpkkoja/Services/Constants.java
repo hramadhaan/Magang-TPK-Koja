@@ -2,7 +2,7 @@ package com.example.tpkkoja.Services;
 
 public class Constants {
     public class ServiceType {
-        public static final String BASE_URL = "https://nyoobie.com/connect/";
+        public static final String BASE_URL = "https://tpkkoja.nyoobie.com/connect/mobile/";
         public static final String LOGIN = BASE_URL + "login.php";
         public static final String REGISTER =  BASE_URL + "register.php";
 

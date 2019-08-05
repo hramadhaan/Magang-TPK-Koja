@@ -43,7 +43,7 @@ public class UploadPatrolSafe extends AppCompatActivity {
 
     Toolbar toolbar;
 
-    private static final String url= "https://nyoobie.com/upload.php";
+    private static final String url= "https://tpkkoja.nyoobie.com/connect/mobile/upload.php";
     private OkHttpClient client = new OkHttpClient();
 
     private PreferenceHelper preferenceHelper;
